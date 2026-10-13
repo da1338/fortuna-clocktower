@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>命运女神厅 · 城市好运地标</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08080A;
+    --bg-2:#0D0D10;
+    --panel:#131317;
+    --panel-2:#18181D;
+    --ink:#F4F2ED;
+    --dim:#8E8A83;
+    --dim-2:#5E5B56;
+    --accent:#FF7A1A;
+    --accent-2:#FFB25E;
+    --line:rgba(255,255,255,.09);
+    --line-2:rgba(255,255,255,.14);
+    --disp:'Archivo','Noto Sans SC',sans-serif;
+    --body:'Inter','Noto Sans SC',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html,body{background:var(--bg);color:var(--ink)}
+  body{font-family:var(--body);font-weight:400;-webkit-font-smoothing:antialiased;overflow-x:clip;line-height:1.6}
+  ::selection{background:var(--accent);color:#0A0A0A}
+  img{user-select:none;-webkit-user-drag:none;max-width:100%}
+
+  .wrap{max-width:1340px;margin:0 auto;padding:0 clamp(20px,4.4vw,64px)}
+  .disp{font-family:var(--disp);font-weight:900;letter-spacing:-.02em}
+
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .85s cubic-bezier(.2,.7,.3,1),transform .85s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- NAV ---------- */
+  nav{position:sticky;top:0;z-index:90;background:rgba(8,8,10,.72);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+  nav .inner{display:flex;justify-content:center;align-items:center;gap:clamp(16px,3.2vw,48px);padding:16px clamp(20px,4.4vw,64px);flex-wrap:wrap}
+  nav a{color:var(--dim);text-decoration:none;font-family:var(--body);font-weight:500;font-size:clamp(11px,1vw,13px);letter-spacing:.16em;text-transform:uppercase;transition:color .25s}
+  nav a:hover{color:var(--accent)}
+
+  /* ---------- SECTION BASE ---------- */
+  section{padding:clamp(80px,12vh,150px) 0}
+  .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:clamp(11px,1vw,13px);letter-spacing:.24em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--accent)}
+  .s-title{font-family:var(--disp);font-weight:900;font-size:clamp(40px,7.6vw,122px);line-height:.95;letter-spacing:-.025em;margin-top:22px}
+  .s-title .a{color:var(--accent)}
+  .s-lead{margin-top:clamp(18px,3vh,30px);max-width:720px;font-size:clamp(15px,1.5vw,20px);line-height:1.8;color:var(--dim)}
+  .s-lead b{color:var(--ink);font-weight:600}
+  .s-lead .g{color:var(--accent);font-weight:600}
+  .s-head{margin-bottom:clamp(40px,6vh,80px)}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding-top:clamp(44px,7vh,84px);overflow:hidden}
+  .hero .backdrop{position:absolute;left:0;right:0;top:clamp(20px,6vh,90px);text-align:center;font-family:var(--disp);font-weight:900;font-size:clamp(120px,30vw,540px);line-height:.8;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.055);pointer-events:none;white-space:nowrap;z-index:0}
+  .hero .wrap{position:relative;z-index:1}
+  .hero .eyebrow-row{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .hero .meta{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim-2)}
+  .hero h1{font-family:var(--disp);font-weight:900;font-size:clamp(52px,11.5vw,178px);line-height:.9;letter-spacing:-.03em;margin-top:clamp(22px,4vh,40px)}
+  .hero h1 .a{color:var(--accent)}
+  .hero .lead{margin-top:clamp(22px,3.4vh,34px);max-width:640px;font-size:clamp(15px,1.55vw,21px);line-height:1.75;color:var(--dim)}
+  .hero .lead b{color:var(--ink);font-weight:600}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:clamp(26px,4vh,40px)}
+  .btn{border-radius:999px;padding:14px 30px;font-family:var(--body);font-weight:600;font-size:clamp(13px,1.25vw,15px);text-decoration:none;letter-spacing:.02em;transition:transform .25s,background .25s,color .25s;display:inline-flex;align-items:center;gap:10px}
+  .btn.solid{background:var(--accent);color:#0A0A0A}
+  .btn.solid:hover{transform:translateY(-2px);background:var(--accent-2)}
+  .btn.ghost{border:1px solid var(--line-2);color:var(--ink)}
+  .btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+  .hero-stage{margin-top:clamp(36px,6vh,64px);border-radius:clamp(22px,3vw,36px);overflow:hidden;border:1px solid var(--line-2);background:var(--panel)}
+  .hero-stage img{display:block;width:100%;height:auto}
+  .hero-stage .stage-cap{display:flex;justify-content:space-between;align-items:flex-end;gap:26px;flex-wrap:wrap;padding:clamp(20px,2.6vw,34px);border-top:1px solid var(--line-2)}
+  .hero-stage .cap h2{font-family:var(--disp);font-weight:900;font-size:clamp(24px,3.2vw,50px);line-height:1;letter-spacing:-.02em}
+  .hero-stage .cap p{margin-top:10px;font-size:clamp(12px,1.2vw,15px);color:var(--dim);letter-spacing:.02em}
+  .hero-stage .tag{display:inline-block;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px}
+  .minicard{background:rgba(255,255,255,.035);border:1px solid var(--line-2);border-radius:18px;padding:clamp(16px,1.8vw,22px);min-width:min(220px,60vw)}
+  .minicard .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim-2)}
+  .minicard .v{font-family:var(--disp);font-weight:900;font-size:clamp(22px,2.6vw,34px);margin-top:8px}
+  .minicard .v em{color:var(--accent);font-style:normal}
+
+  /* ---------- 大数字条 ---------- */
+  .band{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,3vw,40px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(34px,5vh,56px) 0;margin-top:clamp(40px,6vh,72px)}
+  @media(max-width:760px){.band{grid-template-columns:repeat(2,1fr);gap:28px}}
+  .stat .k{font-family:var(--disp);font-weight:900;font-size:clamp(34px,5.2vw,84px);line-height:.92;letter-spacing:-.03em}
+  .stat .k em{color:var(--accent);font-style:normal}
+  .stat .v{font-size:clamp(11px,1.05vw,13px);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:12px}
+
+  /* ---------- 规格（大号行） ---------- */
+  .specs{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(28px,5vw,80px)}
+  @media(max-width:760px){.specs{grid-template-columns:1fr}}
+  .spec{display:flex;justify-content:space-between;gap:24px;align-items:baseline;padding:clamp(16px,2.1vw,24px) 0;border-bottom:1px solid var(--line)}
+  .spec .lab{color:var(--dim);font-size:clamp(12.5px,1.15vw,15px);letter-spacing:.04em;flex:0 0 auto;white-space:nowrap}
+  .spec .val{font-family:var(--disp);font-weight:700;font-size:clamp(16px,1.7vw,24px);letter-spacing:-.01em;text-align:right;line-height:1.25}
+  .spec .val em{color:var(--accent);font-style:normal}
+
+  /* ---------- 装置网格 ---------- */
+  .fig-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);align-items:center;margin-top:clamp(36px,5vh,64px)}
+  @media(max-width:900px){.fig-grid{grid-template-columns:1fr}}
+  .fig-grid .imgbox{border-radius:clamp(18px,2.4vw,30px);overflow:hidden;border:1px solid var(--line-2);background:var(--panel)}
+  .fig-grid .imgbox img{display:block;width:100%;height:auto}
+  .fig-grid .specs{grid-template-columns:1fr}
+
+  /* 图版 */
+  .fig{border-radius:clamp(18px,2.4vw,30px);overflow:hidden;border:1px solid var(--line-2);background:var(--panel);margin-top:clamp(30px,4.4vh,54px)}
+  .fig a{display:block;cursor:zoom-in}
+  .fig img{display:block;width:100%;height:auto}
+  .fig figcaption{padding:16px clamp(18px,2vw,26px);border-top:1px solid var(--line);font-size:clamp(12px,1.1vw,14px);color:var(--dim);letter-spacing:.02em;line-height:1.6}
+  .fig figcaption b{color:var(--ink);font-weight:600}
+  .fig2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,1.8vw,22px);margin-top:clamp(30px,4.4vh,54px)}
+  @media(max-width:760px){.fig2{grid-template-columns:1fr}}
+  .fig2 .fig{margin-top:0}
+
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(24px,3.4vh,36px)}
+  .chip{border:1px solid var(--line-2);border-radius:999px;padding:9px 18px;font-size:clamp(11.5px,1.05vw,13.5px);letter-spacing:.03em;color:var(--dim)}
+  .chip.on{border-color:var(--accent);color:var(--accent);background:rgba(255,122,26,.08)}
+
+  /* ---------- 三支柱 ---------- */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,30px);margin-top:clamp(36px,5vh,64px)}
+  @media(max-width:880px){.pillars{grid-template-columns:1fr}}
+  .pillar{background:var(--panel);border:1px solid var(--line);border-radius:clamp(18px,2.2vw,28px);padding:clamp(26px,3vw,42px);transition:border-color .3s,transform .3s}
+  .pillar:hover{border-color:var(--accent);transform:translateY(-5px)}
+  .pillar .n{font-family:var(--disp);font-weight:900;font-size:clamp(30px,3.6vw,56px);line-height:1;color:var(--accent)}
+  .pillar h3{font-family:var(--disp);font-weight:800;font-size:clamp(24px,2.6vw,40px);margin-top:16px;letter-spacing:-.01em}
+  .pillar p{margin-top:14px;font-size:clamp(14px,1.3vw,17px);line-height:1.75;color:var(--dim)}
+
+  .wheel-wrap{display:flex;justify-content:center;margin-top:clamp(46px,7vh,90px)}
+  .wheel{width:clamp(180px,24vw,300px);aspect-ratio:1/1;border-radius:50%;position:relative;display:grid;place-items:center;border:1px solid rgba(255,122,26,.45)}
+  .wheel::before{content:"";position:absolute;inset:12%;border-radius:50%;border:1px solid rgba(255,122,26,.28)}
+  .wheel::after{content:"";position:absolute;inset:27%;border-radius:50%;border:1px solid rgba(255,122,26,.6)}
+  .wheel .spoke{position:absolute;left:50%;top:50%;width:1px;height:50%;background:linear-gradient(180deg,rgba(255,122,26,.5),transparent);transform-origin:top center}
+  .wheel .hub{width:23%;height:23%;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FFD08A,#FF7A1A 62%,#8A3D00);box-shadow:0 0 60px rgba(255,122,26,.5);display:grid;place-items:center}
+  .wheel .hub i{width:58%;height:58%;background:var(--bg);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+  .wheel .tick{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+
+  /* ---------- 步骤 ---------- */
+  .steps{margin-top:clamp(34px,5vh,60px);max-width:1040px;border-top:1px solid var(--line)}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:clamp(20px,4vw,56px);align-items:baseline;padding:clamp(20px,2.6vw,32px) 0;border-bottom:1px solid var(--line)}
+  .step .n{font-family:var(--disp);font-weight:900;font-size:clamp(24px,2.8vw,44px);line-height:1;color:var(--accent)}
+  .step .tx{font-size:clamp(15px,1.5vw,21px);line-height:1.6}
+  .step .tx b{font-weight:700;color:var(--accent)}
+
+  /* ---------- 好运卡 ---------- */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,22px);margin-top:clamp(36px,5vh,64px)}
+  @media(max-width:1080px){.cards{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.cards{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:clamp(16px,1.8vw,24px);padding:clamp(22px,2.2vw,32px);display:flex;flex-direction:column;transition:transform .35s,border-color .35s,background .35s}
+  .card:hover{transform:translateY(-6px);border-color:var(--accent);background:var(--panel-2)}
+  .card .idx{font-family:var(--disp);font-weight:800;font-size:12px;letter-spacing:.22em;color:var(--accent)}
+  .card h3{font-family:var(--disp);font-weight:900;font-size:clamp(30px,3vw,46px);line-height:1;margin-top:14px;letter-spacing:-.02em}
+  .card .en{font-size:11px;letter-spacing:.22em;color:var(--dim-2);text-transform:uppercase;margin-top:8px}
+  .card .wish{margin-top:18px;font-size:clamp(15px,1.4vw,19px);line-height:1.55;color:var(--ink);font-weight:500}
+  .card dl{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);display:grid;gap:10px}
+  .card dt{font-size:10.5px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;font-weight:700}
+  .card dd{font-size:clamp(12.5px,1.2vw,15px);line-height:1.55;color:var(--dim);margin-top:3px}
+
+  /* ---------- 面板 ---------- */
+  .panels{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,30px);margin-top:clamp(36px,5vh,64px)}
+  @media(max-width:860px){.panels{grid-template-columns:1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:clamp(18px,2.2vw,30px);padding:clamp(28px,3vw,50px)}
+  .panel .tag{font-size:11px;letter-spacing:.24em;color:var(--accent);font-weight:700;text-transform:uppercase}
+  .panel h3{font-family:var(--disp);font-weight:900;font-size:clamp(26px,2.8vw,44px);line-height:1.05;margin-top:16px;letter-spacing:-.02em}
+  .panel p{font-size:clamp(14px,1.35vw,18px);line-height:1.8;margin-top:20px;color:var(--dim)}
+  .panel p b{color:var(--ink);font-weight:600}
+  .panel p .g{color:var(--accent);font-weight:600}
+
+  /* ---------- 乐章 ---------- */
+  .beats{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(12px,1.5vw,20px);margin-top:clamp(36px,5vh,64px)}
+  @media(max-width:980px){.beats{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.beats{grid-template-columns:1fr}}
+  .beat{background:var(--panel);border:1px solid var(--line);border-radius:clamp(16px,1.8vw,24px);padding:clamp(20px,2.2vw,30px)}
+  .beat .t{font-family:var(--disp);font-weight:800;font-size:12px;letter-spacing:.18em;color:var(--accent)}
+  .beat h4{font-family:var(--disp);font-weight:900;font-size:clamp(24px,2.4vw,36px);margin-top:12px;letter-spacing:-.015em}
+  .beat p{font-size:clamp(13px,1.2vw,15.5px);line-height:1.7;color:var(--dim);margin-top:12px}
+
+  /* ---------- 价值 ---------- */
+  .value{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,28px);margin-top:clamp(36px,5vh,64px)}
+  @media(max-width:980px){.value{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.value{grid-template-columns:1fr}}
+  .vcell{background:var(--panel);border:1px solid var(--line);border-radius:clamp(16px,1.8vw,24px);padding:clamp(24px,2.6vw,36px)}
+  .vcell .n{font-family:var(--disp);font-weight:900;font-size:clamp(30px,3.2vw,52px);line-height:1;color:var(--accent)}
+  .vcell h4{font-family:var(--disp);font-weight:800;font-size:clamp(20px,2vw,30px);margin-top:16px;letter-spacing:-.01em}
+  .vcell p{font-size:clamp(13.5px,1.25vw,16.5px);line-height:1.75;color:var(--dim);margin-top:12px}
+
+  /* ---------- 收尾 ---------- */
+  .finale{text-align:center;position:relative;overflow:hidden;padding:clamp(90px,15vh,200px) 0}
+  .finale .big{font-family:var(--disp);font-weight:900;font-size:clamp(46px,9.6vw,168px);line-height:.92;letter-spacing:-.03em}
+  .finale .big .a{color:var(--accent)}
+  .finale .kicker{font-size:clamp(11px,1.05vw,13px);letter-spacing:.34em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:clamp(20px,3vh,34px)}
+  .finale .lead{margin:clamp(26px,4vh,44px) auto 0;max-width:720px;font-size:clamp(15px,1.55vw,20px);line-height:1.85;color:var(--dim)}
+  .finale .lead b{color:var(--ink);font-weight:600}
+  .ring{width:clamp(180px,22vw,300px);height:clamp(180px,22vw,300px);margin:clamp(44px,6vh,76px) auto 0;border-radius:50%;border:1px solid rgba(255,122,26,.45);position:relative;display:grid;place-items:center}
+  .ring::before,.ring::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,122,26,.28)}
+  .ring::before{inset:14%}
+  .ring::after{inset:30%}
+  .ring .core{width:22%;height:22%;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FFE0A6,#FF7A1A 60%,#8A3D00);box-shadow:0 0 80px rgba(255,122,26,.6)}
+  .ring .star{position:absolute;width:8px;height:8px;background:var(--accent-2);border-radius:50%;box-shadow:0 0 18px var(--accent-2)}
+
+  footer{border-top:1px solid var(--line);padding:clamp(34px,5vh,60px) 0}
+  footer .inner{display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;align-items:baseline}
+  footer .l{font-family:var(--disp);font-weight:800;font-size:clamp(15px,1.5vw,20px);letter-spacing:-.01em}
+  footer .r{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim-2)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="#site">场地</a>
+    <a href="#figure">装置</a>
+    <a href="#ritual">仪式</a>
+    <a href="#ride">体验</a>
+    <a href="#fortunes">八种好运</a>
+    <a href="#show">演出</a>
+    <a href="#journey">动线</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="backdrop">FORTUNA</div>
+  <div class="wrap">
+    <div class="eyebrow-row reveal">
+      <span class="eyebrow">城市好运地标 · 钟楼</span>
+      <span class="meta">Ø7.35 m 圆厅 · 通高 10.05 m</span>
+    </div>
+
+    <h1 class="reveal">当命运<br><span class="a">睁开眼</span></h1>
+
+    <p class="lead reveal">在一座钟楼的圆心，一尊会呼吸的金属女神，为这座城市守着好运的入口。转动她脚下的<b>命运之轮</b>，你会带走一份属于自己的祝福。</p>
+
+    <div class="cta reveal">
+      <a class="btn solid" href="#figure">看这件装置 →</a>
+      <a class="btn ghost" href="#ride">体验怎么玩</a>
+    </div>
+
+    <figure class="hero-stage reveal">
+      <img src="01-hero.jpg" alt="主视觉：蒙眼女神立于中心柱前，头悬三重光环">
+      <figcaption class="stage-cap">
+        <div class="cap">
+          <span class="tag">主视觉 · 蒙眼女神与中心柱</span>
+          <h2>命运女神厅</h2>
+          <p>头悬三重光环 · 翼展 ≤3 m · 中心柱偏心 1.2 m</p>
+        </div>
+        <div class="minicard">
+          <div class="k">装置总高</div>
+          <div class="v"><em>5.8</em> m</div>
+        </div>
+      </figcaption>
+    </figure>
+
+    <div class="band reveal">
+      <div class="stat"><div class="k">5.8<em>m</em></div><div class="v">装置总高</div></div>
+      <div class="stat"><div class="k">Ø7.35<em>m</em></div><div class="v">圆形大厅</div></div>
+      <div class="stat"><div class="k">10.05<em>m</em></div><div class="v">打通后通高</div></div>
+      <div class="stat"><div class="k">8<em>种</em></div><div class="v">好运 · 可收集</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 01 场地 ============ -->
+<section id="site">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="eyebrow">01 — 场地</span>
+      <h2 class="s-title">一切，从这座<br><span class="a">圆厅</span>开始</h2>
+      <p class="s-lead">这座圆厅本就备好了三件礼物：<b>一束从地面通向锥顶的竖柱</b>、<b>一道道层层叠放的平直横梁</b>、<b>一片能望穿到夜色的空洞</b>。我们不动空间，只把这三件用到极处。</p>
+    </div>
+    <div class="specs reveal">
+      <div class="spec"><span class="lab">平面</span><span class="val">圆形大厅 <em>Ø7.35 m</em></span></div>
+      <div class="spec"><span class="lab">层高</span><span class="val">下层 3.9 m ＋ 上层 6.15 m</span></div>
+      <div class="spec"><span class="lab">打通后</span><span class="val"><em>通高约 10.05 m</em></span></div>
+      <div class="spec"><span class="lab">周圈骨架</span><span class="val">竖柱 ＋ <em>平直横梁</em></span></div>
+      <div class="spec"><span class="lab">围护</span><span class="val">柱梁之间通透明亮</span></div>
+      <div class="spec"><span class="lab">顶部</span><span class="val">辐射肋锥形顶 ＋ 中心格栅</span></div>
+      <div class="spec"><span class="lab">中心立柱</span><span class="val">直通顶部 · 全厅的轴心</span></div>
+      <div class="spec"><span class="lab">光带</span><span class="val">5–6 道横梁下缘 · 累合约 115–140 m</span></div>
+    </div>
+
+    <div class="fig2 reveal">
+      <figure class="fig"><img src="02-atrium.jpg" alt="单层通高 · 平直短梁版"><figcaption><b>单层通高 · 平直短梁</b> · 打通楼板后，周圈只剩一道道只跨相邻两柱的平直短梁</figcaption></figure>
+      <figure class="fig"><a href="03-scale.jpg" target="_blank" rel="noopener"><img src="03-scale.jpg" alt="平视 · 尺度校核"></a><figcaption><b>平视 · 尺度校核</b> · 在厅内平视，核对柱、梁与人、设备的尺度关系</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 装置 ============ -->
+<section id="figure" style="padding-top:0">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="eyebrow">02 — 装置</span>
+      <h2 class="s-title">她站在<br><span class="a">轮轴</span>之前</h2>
+      <p class="s-lead">一尊<b>完整站姿</b>的当代金属女神，静立在中心柱前 1.2 m。柱从她身后升起、直抵穹顶，顶端托起那道三重同心光环——<b>柱是轮轴，她是从轮轴上开出的一朵金属花</b>。她静立、呼吸、转动；在你转轮的一刻，她为你睁开眼。</p>
+    </div>
+
+    <figure class="fig reveal">
+      <img src="04-lookup.jpg" alt="一层仰望 · 主视觉">
+      <figcaption><b>一层仰望 · 主视觉</b> · 站在轮盘边抬头，她与三重光环占满整片穹顶</figcaption>
+    </figure>
+
+    <div class="fig-grid">
+      <div class="imgbox reveal"><img src="05-section.jpg" alt="竖向剖面尺度关系图"></div>
+      <div class="reveal">
+        <div class="specs">
+          <div class="spec"><span class="lab">高度</span><span class="val">5.8 m（含 0.9 m 基座）</span></div>
+          <div class="spec"><span class="lab">材质</span><span class="val">抛光不锈钢 ＋ 白色复合石材</span></div>
+          <div class="spec"><span class="lab">头顶</span><span class="val">三重同心光环 · 环顶约 9.05 m</span></div>
+          <div class="spec"><span class="lab">眼睛</span><span class="val">鳞片蒙眼带 · 转轮时绽开八芒星虹膜</span></div>
+          <div class="spec"><span class="lab">双翼</span><span class="val">收拢 ≤2.5 m · 展开 ≤3.0 m</span></div>
+          <div class="spec"><span class="lab">左手</span><span class="val">丰裕之角</span></div>
+          <div class="spec"><span class="lab">右手</span><span class="val">掌心向上 · 承托祝福</span></div>
+          <div class="spec"><span class="lab">脚下</span><span class="val">Ø4.5 m 铜质命运之轮</span></div>
+        </div>
+        <div class="chips">
+          <span class="chip on">安静时洁白如初</span>
+          <span class="chip on">亲手转轮 · 她为你睁眼</span>
+          <span class="chip">姿态随当天心意而变</span>
+          <span class="chip">每一次都不同</span>
+          <span class="chip">精密而庄严</span>
+        </div>
+      </div>
+    </div>
+
+    <figure class="fig reveal">
+      <a href="06-mechanism.jpg" target="_blank" rel="noopener"><img src="06-mechanism.jpg" alt="动态机械装置的九个状态"></a>
+      <figcaption><b>同一台装置的九个状态</b> · 收拢—半开—全展，以及翼根传动、头部回转、基座动力舱 · <span style="color:var(--accent)">点击可看大图</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ 03 定位 ============ -->
+<section id="ritual" style="padding-top:0">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="eyebrow">03 — 定位</span>
+      <h2 class="s-title">一座城市的<br><span class="a">好运仪式</span></h2>
+      <p class="s-lead">她是这座城市的<b>好运象征</b>——一个属于城市的地标 IP。借 Fortuna 的符号（机遇、丰饶、美好降临），我们做的是一场主题体验：像一座城市的许愿灯、心愿墙、福袋铺子，把美好的祝愿，做成一次可以亲手完成的仪式。</p>
+    </div>
+
+    <div class="pillars reveal">
+      <div class="pillar"><div class="n">01</div><h3>仪式</h3><p>亲手为自己转一次轮，让旅途里多一个郑重而难忘的瞬间。</p></div>
+      <div class="pillar"><div class="n">02</div><h3>祝福</h3><p>转出的每一种好运，都是一句美好的祝愿，可以留给自己，也可以送给别人。</p></div>
+      <div class="pillar"><div class="n">03</div><h3>相遇</h3><p>在城市的圆心，与命运相遇——为今天，为家人，也为远方的牵挂，转一份心意。</p></div>
+    </div>
+
+    <div class="wheel-wrap reveal">
+      <div class="wheel"><div class="hub"><i></i></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 体验 ============ -->
+<section id="ride" style="padding-top:0">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="eyebrow">04 — 体验</span>
+      <h2 class="s-title">一次好运体验<br><span class="a">怎么走</span></h2>
+      <p class="s-lead">全程约 <b>2–3 分钟</b>。那十几秒的等待，是整场最动人的部分——<span class="g">让人抬头、屏息、期待</span>。轮子缓缓地转，慢才显郑重，慢才拍得清。</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><span class="n">01</span><span class="tx">站定在她脚下的<b>命运之轮</b>前。</span></div>
+      <div class="step"><span class="n">02</span><span class="tx">把<b>好运之钥</b>插进锁孔，轻轻一转。</span></div>
+      <div class="step"><span class="n">03</span><span class="tx">好运之轮缓缓转动，厅内灯光随之柔柔亮起。</span></div>
+      <div class="step"><span class="n">04</span><span class="tx">停下，落在<b>一种好运</b>上。</span></div>
+      <div class="step"><span class="n">05</span><span class="tx">厅内声光为你送上祝福：好运之名浮现，头顶光环为你点亮。</span></div>
+      <div class="step"><span class="n">06</span><span class="tx">取走<b>一枚好运徽章</b>，把祝福带走。</span></div>
+    </div>
+
+    <div class="fig2 reveal">
+      <figure class="fig"><img src="07-ritual.jpg" alt="游客刷卡那一瞬"><figcaption><b>刷卡那一瞬</b> · 好运之钥插进锁孔，轮盘边亮起</figcaption></figure>
+      <figure class="fig"><img src="08-eyeopen.jpg" alt="二楼门洞平视 · 睁眼时刻"><figcaption><b>睁眼时刻</b> · 声光回应的一瞬，好运之名浮现</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 八种好运 ============ -->
+<section id="fortunes" style="padding-top:0">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="eyebrow">05 — 好运之钥</span>
+      <h2 class="s-title">八把钥匙<br><span class="a">八种好运</span></h2>
+      <p class="s-lead">启动好运之轮的，是一枚钥匙形状的<b>「好运之钥」</b>，插槽做成锁孔造型，插入时有清晰的段落感与声响。它是开关，更是一枚可以带走的城市信物。每转一次，得一份好运——<b>人人不同，这正是期待所在</b>。</p>
+    </div>
+    <div class="cards" id="cardGrid"></div>
+  </div>
+</section>
+
+<!-- ============ 06 带走 ============ -->
+<section id="takeaway" style="padding-top:0">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="eyebrow">06 — 带走</span>
+      <h2 class="s-title">把好运，<span class="a">带回家</span></h2>
+    </div>
+    <div class="panels reveal">
+      <div class="panel">
+        <div class="tag">好运之钥</div>
+        <h3>一枚有质感的<br>城市信物</h3>
+        <p>启动好运之轮的，是<b>「好运之钥」</b>——钥匙形外壳。它本身就是一件文创纪念品：能挂、能收、能送人。插槽做成锁孔造型，插入时有清晰的段落感与声响，让启动动作有仪式感。拿在手里，像握着一把属于这座城市的好运钥匙。</p>
+      </div>
+      <div class="panel">
+        <div class="tag">带走</div>
+        <h3>好运徽章<br>＋ 纪念卡</h3>
+        <p>一枚<b>好运徽章</b>，对应你今天转出的那份好运——可收集、可分享、可送人。<br>一张<b>纪念卡</b>：正面是你写下的心愿与日期，背面是今天的好运。徽章配礼盒，作为一份城市伴手礼，让美好在人与人的赠予之间流转。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 演出 ============ -->
+<section id="show" style="padding-top:0">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="eyebrow">07 — 演出</span>
+      <h2 class="s-title">整点开演<br><span class="a">五乐章</span></h2>
+      <p class="s-lead">每到整点，一场公共演出自动开场，厅里灯火常明、始终有戏。每一次亲手开启，厅内的屏幕、光环与光带，则为她做一次专属的声光回应。</p>
+    </div>
+    <div class="beats" id="beatGrid"></div>
+
+    <div class="s-head reveal" style="margin-top:clamp(50px,8vh,96px);margin-bottom:0">
+      <span class="eyebrow">07b — 光 · 声 · 乐</span>
+      <h2 class="s-title">光生于骨架<br><span class="a">声生于穹顶</span></h2>
+    </div>
+    <div class="specs reveal" style="margin-top:clamp(30px,4.5vh,52px)">
+      <div class="spec"><span class="lab">光 · 骨架</span><span class="val">每道平直横梁下缘一条直线光带</span></div>
+      <div class="spec"><span class="lab">光 · 地面</span><span class="val">镜面八芒星</span></div>
+      <div class="spec"><span class="lab">光 · 头顶</span><span class="val">三重同心光环（中心柱托住）</span></div>
+      <div class="spec"><span class="lab">屏 · 中心柱</span><span class="val">竖长 LED 屏 · 播放演出画面</span></div>
+      <div class="spec"><span class="lab">屏 · 横梁</span><span class="val">每道梁下缘一条横条屏</span></div>
+      <div class="spec"><span class="lab">声</span><span class="val">梁下缘定向声学缝隙 · 天然混响</span></div>
+      <div class="spec"><span class="lab">乐</span><span class="val">现场弦乐小编制 · 每整点一场</span></div>
+      <div class="spec"><span class="lab">演奏</span><span class="val">纯器乐演绎 · 只有光与声</span></div>
+    </div>
+
+    <figure class="fig reveal">
+      <a href="09-interaction.jpg" target="_blank" rel="noopener"><img src="09-interaction.jpg" alt="互动 · 屏幕 · 声光乐"></a>
+      <figcaption><b>互动 · 屏幕 · 声光乐</b> · 柱身屏、地面八芒星、梁间吊膜，与整点声光 · <span style="color:var(--accent)">点击可看大图</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ 08 价值 ============ -->
+<section id="value" style="padding-top:0">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="eyebrow">08 — 价值</span>
+      <h2 class="s-title">为什么，这是一件<br><span class="a">值得做的作品</span></h2>
+    </div>
+    <div class="value reveal">
+      <div class="vcell"><div class="n">01</div><h4>值得停留</h4><p>旅途里愿意停下来，为自己认真转一次好运——一个有意义的瞬间，值得纪念。</p></div>
+      <div class="vcell"><div class="n">02</div><h4>值得分享</h4><p>八种徽章可收集、可晒、可送；夜里钟楼亮起，是城市夜景的打卡点。</p></div>
+      <div class="vcell"><div class="n">03</div><h4>一条线闭合</h4><p>开启 → 得到祝福 → 带走徽章 → 集齐复购 → 城市伴手礼。</p></div>
+      <div class="vcell"><div class="n">04</div><h4>把人带进来</h4><p>好运体验 ＋ 夜间灯光，把客流从街区带进钟楼，成为城市夜游的一站。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 动线 ============ -->
+<section id="journey" style="padding-top:0">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="eyebrow">09 — 动线</span>
+      <h2 class="s-title">一条线，只为<br><span class="a">一场相遇</span></h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><span class="n">01</span><span class="tx">入口暗廊。灯光低垂，地面一条引导灯带引你前行。</span></div>
+      <div class="step"><span class="n">02</span><span class="tx">门推开，<b>第一眼看见她</b>，脚下轮盘边铜条静静亮着。</span></div>
+      <div class="step"><span class="n">03</span><span class="tx">自由步入，一路无阻，直达她脚下。</span></div>
+      <div class="step"><span class="n">04</span><span class="tx">站到轮盘边，<b>把好运之钥插进锁孔</b>，演出开始。</span></div>
+      <div class="step"><span class="n">05</span><span class="tx">演出结束，灯光转柔，人自然散开、拍照，走上二楼门洞与她<b>平视</b>。</span></div>
+      <div class="step"><span class="n">06</span><span class="tx">出口一条 6 m 零售带：钥匙礼盒、徽章、纪念品。</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 收尾 ============ -->
+<section class="finale">
+  <div class="wrap">
+    <div class="kicker reveal">为自己，转一轮好运</div>
+    <h2 class="big reveal">今天，你想为自己<br>转出<span class="a">哪一种好运</span></h2>
+    <p class="lead reveal">这是钟楼里的一场好运仪式。她白天安静立于厅中，转轮的一刻为你睁眼，整点为所有人开演；而站在厅里的那个人，手里握着一把钥匙——<b>亲手转出一份祝福，把它带走。</b></p>
+    <div class="ring reveal">
+      <i class="core"></i>
+      <i class="star" style="left:50%;top:6%;transform:translateX(-50%)"></i>
+      <i class="star" style="right:8%;top:50%;transform:translateY(-50%)"></i>
+      <i class="star" style="left:50%;bottom:6%;transform:translateX(-50%)"></i>
+      <i class="star" style="left:8%;top:50%;transform:translateY(-50%)"></i>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="inner">
+      <div class="l">命运女神厅 · 城市好运地标</div>
+      <div class="r">方案汇报 · 2026</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+var CARDS = [
+  {i:"01",cn:"丰饶",en:"Cornucopia",w:"愿你所盼，皆有回响。",a:"丰裕之角缓缓倾倒，掌心浮起一枚旋转的光球",l:"暖金色，内敛",s:"柱屏浮现金色麦穗",v:"低音持续饱满"},
+  {i:"02",cn:"机遇",en:"Chance",w:"愿每一次转身，都遇见机会。",a:"一道白光自穹顶落下，全厅一亮，再缓缓转暗",l:"一道白光自顶而下",s:"全屏白闪",v:"一声清亮钟鸣"},
+  {i:"03",cn:"进阶",en:"Ascent",w:"愿你所行之路，步步向上。",a:"光带自下而上层层点亮，像在往高处走",l:"光带自下而上追着升",s:"柱屏显示上升刻度",v:"渐强的弦乐上行"},
+  {i:"04",cn:"相遇",en:"Encounter",w:"愿你在人海里，遇见对的人。",a:"一束柔光落在她的面部，像在轻轻看你",l:"一束柔光落于面部",s:"柱屏浮现一句问候",v:"乐声收窄至单件乐器"},
+  {i:"05",cn:"灵感",en:"Spark",w:"愿灵光常在，想法成真。",a:"右手指尖方向连续弹出三枚小光环",l:"一点一点的光斑扩散",s:"小光环飞向屏里",v:"音符逐个落下"},
+  {i:"06",cn:"守护",en:"Guardian",w:"愿有人为你，也为你去守护。",a:"光带围合成一圈，把轮盘罩在光里",l:"光带变成围合的一圈",s:"柱屏转为盾形纹样",v:"低频，安定感"},
+  {i:"07",cn:"团圆",en:"Reunion",w:"愿所念之人，都在身边。",a:"全部光带同亮至最亮，光环静静停下",l:"全部光带同亮至最亮",s:"全屏暖金",v:"全体合奏"},
+  {i:"08",cn:"新生",en:"Rebirth",w:"愿每一次出发，都是新的开始。",a:"从暗到亮，光环重新旋转起来",l:"从暗到满亮",s:"柱屏由白转金",v:"从无到满"}
+];
+
+var BEATS = [
+  {t:"0–15 s",cn:"呼吸",d:"静立，蒙眼，头顶光环缓转。骨架几乎全暗，地面只亮轮盘边铜条，一声低频起。"},
+  {t:"15–30 s",cn:"睁眼",d:"鳞片眼罩翻开，八芒星虹膜亮起。最近一道平直横梁亮起，纹路从轮心向外，单声清鸣。"},
+  {t:"30–55 s",cn:"展翼",d:"双翼从贴背开到全展 3.0 米。全部横梁光带逐道亮，八芒星纹跟上节奏，弦乐进入。"},
+  {t:"55–75 s",cn:"环流",d:"她缓缓转向观众，头微抬。横条屏流动光带，光纹沿圆周跑，主旋律响起。"},
+  {t:"75–90 s",cn:"收束",d:"双翼缓缓收拢，眼罩缓缓落下。光带逐道退去，只余轮盘，余音回荡。"}
+];
+
+document.getElementById('cardGrid').innerHTML = CARDS.map(function(c){
+  return '<article class="card reveal">'
+    + '<div class="idx">KEY '+c.i+'</div>'
+    + '<h3>'+c.cn+'</h3><div class="en">'+c.en+'</div>'
+    + '<p class="wish">'+c.w+'</p>'
+    + '<dl>'
+    + '<div><dt>装置回应</dt><dd>'+c.a+'</dd></div>'
+    + '<div><dt>光</dt><dd>'+c.l+'</dd></div>'
+    + '<div><dt>屏</dt><dd>'+c.s+'</dd></div>'
+    + '<div><dt>声</dt><dd>'+c.v+'</dd></div>'
+    + '</dl></article>';
+}).join('');
+
+document.getElementById('beatGrid').innerHTML = BEATS.map(function(b){
+  return '<div class="beat reveal"><div class="t">'+b.t+'</div><h4>'+b.cn+'</h4><p>'+b.d+'</p></div>';
+}).join('');
+
+var wheel = document.querySelector('.wheel');
+if(wheel){
+  for(var a=0;a<8;a++){
+    var s=document.createElement('div');
+    s.className='spoke';
+    s.style.transform='rotate('+(a*45)+'deg)';
+    wheel.appendChild(s);
+  }
+  for(var b=0;b<8;b++){
+    var t=document.createElement('div');
+    t.className='tick';
+    var ang=b*45*Math.PI/180, r=43;
+    t.style.left='calc(50% + '+(Math.sin(ang)*r).toFixed(1)+'% - 3.5px)';
+    t.style.top='calc(50% - '+(Math.cos(ang)*r).toFixed(1)+'% - 3.5px)';
+    wheel.appendChild(t);
+  }
+}
+
+var io = new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+},{threshold:0.1, rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.reveal').forEach(function(el,i){
+  el.style.transitionDelay = (Math.min(i,5)*0.05)+'s';
+  io.observe(el);
+});
+</script>
+</body>
+</html>
